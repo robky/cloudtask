@@ -10,7 +10,8 @@ class Service(models.Model):
 
 class Version(models.Model):
     service = models.ForeignKey(
-        Service, on_delete=models.CASCADE, related_name="versions")
+        Service, on_delete=models.CASCADE, related_name="versions"
+    )
     version = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
