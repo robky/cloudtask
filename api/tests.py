@@ -16,7 +16,7 @@ class ConfigTests(APITestCase):
         cls.service_name2 = "mario"
 
         cls.data1 = [{"key1": "value1"}, {"key2": "value2"}]
-        cls.data1_response = {'key1': 'value1', 'key2': 'value2'}
+        cls.data1_response = {"key1": "value1", "key2": "value2"}
         cls.data2 = [{"key1": "player1"}, {"key2": "player2"}]
         cls.data2_response = {"key1": "player1", "key2": "player2"}
 

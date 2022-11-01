@@ -36,10 +36,10 @@ class ConfigAPI(APIView):
             last_version = service.versions.last()
             config = Config.objects.get(version=last_version)
             return Response(eval(config.data))
-        else:
-            queryset = Service.objects.all()
-            serializer = ServiceSerializer(queryset, many=True)
-            return Response(serializer.data)
+
+        queryset = Service.objects.all()
+        serializer = ServiceSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
         return new_config(request.data)
