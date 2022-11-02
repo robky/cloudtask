@@ -6,9 +6,11 @@
 - удалить конфигурацию приложения возможно только если нет других версий, иначе удаляется последняя версия
 
 ### Технологии
+```
 Django
 Django Rest Framework
 Docker
+```
 
 ### Demo:
 
@@ -19,7 +21,11 @@ Docker
 git clone https://github.com/robky/cloudtask.git
 ```
 
-Из папки deploy запустить контейнеры
+Из папки deploy запустить контейнеры и выполнить команды
 ```
 docker-compose up -d
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py collectstatic --no-input
 ```
+
+
