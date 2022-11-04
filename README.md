@@ -8,6 +8,8 @@
 Для проверки сервиса написаны тесты.
 Созданы спецификации Swagger/ReDoc/OpenAPI 2.0 из API Django Rest Framework при помощи drf-yasg.
 
+![branch parameter](https://github.com/robky/cloudtask/actions/workflows/tests.yml/badge.svg)
+
 ### Технологии
 ```
 Django
@@ -18,9 +20,9 @@ Docker
 ```
 
 ### Demo (тестовый пример):
-```
+
 http://62.217.177.137
-```
+
 
 
 ### Как запустить проект:
