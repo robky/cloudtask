@@ -5,14 +5,22 @@
 - поддерживается версионирование конфигурации при его изменении (у каждой версии есть метка времени)
 - удалить конфигурацию приложения возможно только если нет других версий, иначе удаляется последняя версия
 
+Для проверки сервиса написаны тесты.
+Созданы спецификации Swagger/ReDoc/OpenAPI 2.0 из API Django Rest Framework при помощи drf-yasg.
+
 ### Технологии
 ```
 Django
 Django Rest Framework
+SQLite
+drf-yasg
 Docker
 ```
 
-### Demo:
+### Demo (тестовый пример):
+```
+http://62.217.177.137
+```
 
 
 ### Как запустить проект:
@@ -21,7 +29,7 @@ Docker
 git clone https://github.com/robky/cloudtask.git
 ```
 
-Из папки deploy запустить контейнеры и выполнить команды
+Перейти в папку deploy и выполнить команды:
 ```
 docker-compose up -d
 docker-compose exec web python manage.py migrate

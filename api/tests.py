@@ -18,6 +18,7 @@ class ConfigTests(APITestCase):
         cls.data1 = [{"key1": "value1"}, {"key2": "value2"}]
         cls.data1_response = {"key1": "value1", "key2": "value2"}
         cls.data2 = [{"key1": "player1"}, {"key2": "player2"}]
+        cls.data2_response_patch = [{"key1": "player1", "key2": "player2"}]
         cls.data2_response = {"key1": "player1", "key2": "player2"}
 
         cls.config1 = {"service": cls.service_name1, "data": cls.data1}
@@ -78,11 +79,15 @@ class ConfigTests(APITestCase):
         """Проверка внесение изменений конфигурации в сервисе"""
         self.client.post(self.config_url, self.config1)
 
-        response = self.client.patch(self.service_name_url, self.data2)
+        response = self.client.patch(
+            self.service_name_url, {"data": self.data2}
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         response_content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(response_content.get("service"), self.service_name1)
-        self.assertEqual(response_content.get("data"), self.data2)
+        self.assertEqual(
+            response_content.get("data"), self.data2_response_patch
+        )
 
         response = self.client.get(self.service_name_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -96,20 +101,20 @@ class ConfigTests(APITestCase):
 
         """Проверка удаления конфигурации в сервисе"""
         self.client.post(self.config_url, self.config1)
-        self.client.patch(self.service_name_url, self.data2)
+        self.client.patch(self.service_name_url, {"data": self.data2})
 
         self.assertEqual(Service.objects.count(), service_count + 1)
         self.assertEqual(Version.objects.count(), version_count + 2)
         self.assertEqual(Config.objects.count(), config_count + 2)
 
         response = self.client.delete(self.service_name_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Service.objects.count(), service_count + 1)
         self.assertEqual(Version.objects.count(), version_count + 1)
         self.assertEqual(Config.objects.count(), config_count + 1)
 
         response = self.client.delete(self.service_name_url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Service.objects.count(), service_count)
         self.assertEqual(Version.objects.count(), version_count)
         self.assertEqual(Config.objects.count(), config_count)

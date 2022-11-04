@@ -1,17 +1,20 @@
 from rest_framework import serializers
 
-from core.models import Service
 
-
-class ServiceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Service
-        fields = ("service",)
+class DataSerializer(serializers.ListField):
+    child = serializers.DictField()
 
 
 class PostConfigSerializer(serializers.Serializer):
     service = serializers.CharField()
-    data = serializers.ListField()
+    data = DataSerializer()
 
     class Meta:
         fields = ("service", "data")
+
+
+class PatchConfigSerializer(serializers.Serializer):
+    data: dict = DataSerializer()
+
+    class Meta:
+        fields = ("data",)
